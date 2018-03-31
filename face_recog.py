@@ -91,7 +91,7 @@ if len(test_result) != 0:
         	max_confidence = r['confidence']
         sim_face += 1
 
-print(recogize_result)
+print(str(recogize_result))
 
 
 
