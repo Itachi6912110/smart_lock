@@ -3,26 +3,43 @@ import sys
 import RPi.GPIO as gpio
 from modules.controller import Controller
 
-PINS = []
-controller = Controller(PINS) # motor pins (a list)
+MOTOR_PINS = [13, 19, 26, 21, 20, 16]
+SERVO_PIN = 18
+SONAR_PINS = [23, 24]
+controller = Controller(MOTOR_PINS, SERVO_PIN, SONAR_PINS) # motor pins (a list)
 
+#def for slipper cars
 def slipper_1_out():
   controller.slipper_move(0, "forward")
+  controller.stop()
 
 def slipper_2_out():
   controller.slipper_move(1, "forward")
+  controller.stop()
 
 def slipper_3_out():
   controller.slipper_move(2, "forward")
+  controller.stop()
 
 def slipper_1_in():
   controller.slipper_move(0, "backward")
+  controller.stop()
 
 def slipper_2_in():
   controller.slipper_move(1, "backward")
+  controller.stop()
 
 def slipper_3_in():
   controller.slipper_move(2, "backward")
+  controller.stop()
+
+#def for lock
+def open_door():    #open door and lock back when the door is close enough
+  controller.open()
+  while True :
+    if controller.get_distance() < 1:
+      controller.lock()
+      break
 
 if __name__ == '__main__':
   gpio.setmode(gpio.BCM)
