@@ -3,6 +3,7 @@ import requests
 from io import BytesIO
 import numpy as np
 import motor_run
+from motor_run import open_door
 from time import sleep
 import cv2
 

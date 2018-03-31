@@ -1,5 +1,6 @@
 from RPi import GPIO as gpio
 import time
+from time import sleep
 
 RUN_TIME = 3  #run time for slipper car
 
