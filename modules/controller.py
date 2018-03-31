@@ -60,10 +60,10 @@ class Controller(object):
         count = count - 1
 
   def get_distance(self):
-    send_trigger_pulse()
-    wait_for_echo(True, 5000)
+    self.send_trigger_pulse()
+    self.wait_for_echo(True, 5000)
     start = time.time()
-    wait_for_echo(False, 5000)
+    self.wait_for_echo(False, 5000)
     finish = time.time()
     pulse_len = finish - start
     distance_cm = pulse_len * 340 *100 /2

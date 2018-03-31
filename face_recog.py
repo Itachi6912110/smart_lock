@@ -97,7 +97,7 @@ while(req_count):
     recogize_result = str(recogize_result)
 
     if recogize_result == '1' or recogize_result == '2' or recogize_result == '3':
-        req_count == 1
+        req_count = 1
         open_door()
     
     #control slipper cars
