@@ -2,7 +2,7 @@ import cognitive_face as CF
 import requests
 from io import BytesIO
 import numpy as np
-import motor_run as mr
+import motor_run
 from time import sleep
 import cv2
 
@@ -75,40 +75,41 @@ for f in files:
 all_faceid = [f['faceId'] for image in results for f in image]
 
 #test_result = get_face_data(test_file)
+while(True):
+    # return recognize result, 0: no match; 1: Joe; 2: Cynthia; 3: Louis; 4: Pierre
+    recogize_result = 0
 
-# return recognize result, 0: no match; 1: Joe; 2: Cynthia; 3: Louis; 4: Pierre
-recogize_result = 0
+    test_img = show_webcam()
+    test_result = get_face_data_img(test_img)
+    if len(test_result) != 0:
+        test_faceId = test_result[0]['faceId']
+        sim_face = 1
+        max_confidence = 0
+        for f in all_faceid:
+            r = CF.face.verify(f, test_faceId)
+            print(r)
+            if r['isIdentical'] and r['confidence']>max_confidence:
+        	    recogize_result = sim_face
+        	    max_confidence = r['confidence']
+            sim_face += 1
 
-test_img = show_webcam()
-test_result = get_face_data_img(test_img)
-if len(test_result) != 0:
-    test_faceId = test_result[0]['faceId']
-    sim_face = 1
-    max_confidence = 0
-    for f in all_faceid:
-        r = CF.face.verify(f, test_faceId)
-        print(r)
-        if r['isIdentical'] and r['confidence']>max_confidence:
-        	recogize_result = sim_face
-        	max_confidence = r['confidence']
-        sim_face += 1
-
-print (str(recogize_result))
-
-#control slipper cars
-if recogize_result == '0': #nobody
-    pass
-elif recogize_result == '1': #Joe
-    mr.slipper_1_out()
-    sleep(3)
-    mr.slipper_1_in()
-elif recogize_result == '2': #Cynthia
-    mr.slipper_2_out()
-    sleep(3)
-    mr.slipper_2_in()
-elif recogize_result == '3': #Louis
-    mr.slipper_3_out()
-    sleep(3)
-    mr.slipper_3_in()
-else:
-    pass
+    print (str(recogize_result))
+    
+    #control slipper cars
+    if recogize_result == '0': #nobody
+        pass
+    elif recogize_result == '1': #Joe
+        slipper_1_out()
+        sleep(3)
+        slipper_1_in()
+    elif recogize_result == '2': #Cynthia
+        slipper_2_out()
+        sleep(3)
+        slipper_2_in()
+    elif recogize_result == '3': #Louis
+        slipper_3_out()
+        sleep(3)
+        slipper_3_in()
+    else:
+        pass
+    
