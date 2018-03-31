@@ -94,6 +94,7 @@ while(req_count):
             sim_face += 1
 
     print (str(recogize_result))
+    recogize_result = str(recogize_result)
 
     if recogize_result == '1' or recogize_result == '2' or recogize_result == '3':
         req_count == 1
