@@ -2,6 +2,8 @@ import cognitive_face as CF
 import requests
 from io import BytesIO
 import numpy as np
+import motor_run as mr
+from time import sleep
 import cv2
 
 KEY = '81584f93ae644d1497bb4982d5ff6ef9'  # Replace with a valid subscription key (keeping the quotes in place).
@@ -93,30 +95,20 @@ if len(test_result) != 0:
 
 print (str(recogize_result))
 
-
-
-# You can use this example JPG or replace the URL below with your own URL to a JPEG image.
-#img_url = 'https://raw.githubusercontent.com/Microsoft/Cognitive-Face-Windows/master/Data/detection1.jpg'
-#faces = CF.face.detect(img_url)
-#print(faces)
-
-#Convert width height to a point in a rectangle
-#def getRectangle(faceDictionary):
-#    rect = faceDictionary['faceRectangle']
-#    left = rect['left']
-#    top = rect['top']
-#    bottom = left + rect['height']
-#    right = top + rect['width']
-#    return ((left, top), (bottom, right))
-
-#Download the image from the url
-#response = requests.get(img_url)
-#img = Image.open(BytesIO(response.content))
-
-#For each face returned use the face rectangle and draw a red box.
-#draw = ImageDraw.Draw(img)
-#for face in faces:
-#    draw.rectangle(getRectangle(face), outline='red')
-
-#Display the image in the users default image browser.
-#img.show()
+#control slipper cars
+if recogize_result == '0': #nobody
+    pass
+elif recogize_result == '1': #Joe
+    mr.slipper_1_out()
+    sleep(3)
+    mr.slipper_1_in()
+elif recogize_result == '2': #Cynthia
+    mr.slipper_2_out()
+    sleep(3)
+    mr.slipper_2_in()
+elif recogize_result == '3': #Louis
+    mr.slipper_3_out()
+    sleep(3)
+    mr.slipper_3_in()
+else:
+    pass
