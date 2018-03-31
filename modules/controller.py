@@ -28,7 +28,7 @@ class Controller(object):
   #define motor funcs
   def slipper_move(self, num, mode=0): # you cannot call twice
     if mode == "backward":
-      (num + 1) *= -1
+      num = (-1) * (num + 1)
     gpio.output(self.motors[num], 1)
     sleep(RUN_TIME)
 
