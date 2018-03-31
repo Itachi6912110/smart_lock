@@ -8,6 +8,9 @@ SERVO_PIN = 18
 SONAR_PINS = [23, 24]
 controller = Controller(MOTOR_PINS, SERVO_PIN, SONAR_PINS) # motor pins (a list)
 
+#parameters
+CLOSE_DIST = 3  #distance of when to lock the door
+
 #def for slipper cars
 def slipper_1_out():
   controller.slipper_move(0, "forward")
@@ -37,7 +40,7 @@ def slipper_3_in():
 def open_door():    #open door and lock back when the door is close enough
   controller.open()
   while True :
-    if controller.get_distance() < 1:
+    if controller.get_distance() < CLOSE_DIST:
       controller.lock()
       break
 

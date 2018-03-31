@@ -63,7 +63,6 @@ filename1 = '/home/pi/smart_lock/photo_Make/Joe/1.jpg'
 filename2 = '/home/pi/smart_lock/photo_Make/Cynthia/2.jpg'
 filename3 = '/home/pi/smart_lock/photo_Make/Louis/3.jpg'
 filename4 = '/home/pi/smart_lock/photo_Make/Pierre/4.jpg'
-#test_file = '/home/louiefu/Desktop/makentu/photo_Make/Pierre/29893563_1724619870894340_1212997725_o.jpg'
 
 files = [filename1, filename2, filename3, filename4]
 
@@ -74,8 +73,9 @@ for f in files:
 
 all_faceid = [f['faceId'] for image in results for f in image]
 
-#test_result = get_face_data(test_file)
-while(True):
+
+req_count = 5   # To avoid violate max request send, only do 5 times
+while(req_count): 
     # return recognize result, 0: no match; 1: Joe; 2: Cynthia; 3: Louis; 4: Pierre
     recogize_result = 0
 
@@ -94,6 +94,8 @@ while(True):
             sim_face += 1
 
     print (str(recogize_result))
+
+    open_door()
     
     #control slipper cars
     if recogize_result == '0': #nobody
@@ -113,3 +115,4 @@ while(True):
     else:
         pass
     
+    req_count -= 1
