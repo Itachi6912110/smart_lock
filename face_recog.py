@@ -1,7 +1,6 @@
 import cognitive_face as CF
 import requests
 from io import BytesIO
-from PIL import Image, ImageDraw
 import numpy as np
 import cv2
 
@@ -53,8 +52,8 @@ def get_face_data_img(img):
 def show_webcam():
     cam = cv2.VideoCapture(0)
     ret_val, img = cam.read()
-    _, img = cv2.imencode('.jpg', img)
     cv2.imwrite('test.jpg', img)
+    _, img = cv2.imencode('.jpg', img)
     return img.tostring()
 
 #################################################
@@ -74,13 +73,26 @@ for f in files:
 all_faceid = [f['faceId'] for image in results for f in image]
 
 #test_result = get_face_data(test_file)
+
+# return recognize result, 0: no match; 1: Joe; 2: Cynthia; 3: Louis; 4: Pierre
+recogize_result = 0
+
 test_img = show_webcam()
 test_result = get_face_data_img(test_img)
-test_faceId = test_result[0]['faceId']
+if len(test_result) != 0:
+    test_faceId = test_result[0]['faceId']
+    sim_face = 1
+    max_confidence = 0
+    for f in all_faceid:
+        r = CF.face.verify(f, test_faceId)
+        print(r)
+        if r['isIdentical'] and r['confidence']>max_confidence:
+        	recogize_result = sim_face
+        	max_confidence = r['confidence']
+        sim_face += 1
 
-for f in all_faceid:
-    r = CF.face.verify(f, test_faceId)
-    print(r)
+print(recogize_result)
+
 
 
 # You can use this example JPG or replace the URL below with your own URL to a JPEG image.
