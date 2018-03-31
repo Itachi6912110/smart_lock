@@ -2,8 +2,7 @@ import cognitive_face as CF
 import requests
 from io import BytesIO
 import numpy as np
-import motor_run
-from motor_run import open_door
+from motor_run import *
 from time import sleep
 import cv2
 
@@ -96,7 +95,9 @@ while(req_count):
 
     print (str(recogize_result))
 
-    open_door()
+    if recogize_result == '1' or recogize_result == '2' or recogize_result == '3':
+        req_count == 1
+        open_door()
     
     #control slipper cars
     if recogize_result == '0': #nobody

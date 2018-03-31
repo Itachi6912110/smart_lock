@@ -49,17 +49,17 @@ class Controller(object):
     sleep(3)
 
   #def sonar funcs
-  def send_trigger_pulse():
+  def send_trigger_pulse(self):
     gpio.output(self.trigger_pin, True)
     time.sleep(0.001)
     gpio.output(self.trigger_pin, False)
 
-  def wait_for_echo(value, timeout):
+  def wait_for_echo(self, value, timeout):
     count = timeout
     while gpio.input(self.echo_pin) != value and count > 0:
         count = count - 1
 
-  def get_distance():
+  def get_distance(self):
     send_trigger_pulse()
     wait_for_echo(True, 5000)
     start = time.time()
