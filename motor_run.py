@@ -38,9 +38,12 @@ def slipper_3_in():
 
 #def for lock
 def open_door():    #open door and lock back when the door is close enough
+  print("openning door ...")
   controller.open()
   while True :
+    print(controller.get_distance())
     if controller.get_distance() < CLOSE_DIST:
+      print("locking door ...")
       controller.lock()
       break
 
