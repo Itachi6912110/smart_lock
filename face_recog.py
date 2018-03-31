@@ -57,10 +57,10 @@ def show_webcam():
     return img.tostring()
 
 #################################################
-filename1 = '/home/louiefu/Desktop/makentu/photo_Make/Joe/29831505_1779717248774811_2052102016_o.jpg'
-filename2 = '/home/louiefu/Desktop/makentu/photo_Make/Cynthia/29829371_1779717112108158_1600889678_o.jpg'
-filename3 = '/home/louiefu/Desktop/makentu/photo_Make/Louis/29831508_1160033747472618_1812921281_o.jpg'
-filename4 = '/home/louiefu/Desktop/makentu/photo_Make/Pierre/29893563_1724619870894340_1212997725_o.jpg'
+filename1 = '/home/louiefu/Desktop/makentu/photo_Make/Joe/1.jpg'
+filename2 = '/home/louiefu/Desktop/makentu/photo_Make/Cynthia/2.jpg'
+filename3 = '/home/louiefu/Desktop/makentu/photo_Make/Louis/3.jpg'
+filename4 = '/home/louiefu/Desktop/makentu/photo_Make/Pierre/4.jpg'
 #test_file = '/home/louiefu/Desktop/makentu/photo_Make/Pierre/29893563_1724619870894340_1212997725_o.jpg'
 
 files = [filename1, filename2, filename3, filename4]
