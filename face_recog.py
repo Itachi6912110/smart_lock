@@ -14,6 +14,7 @@ CF.Key.set(KEY)
 BASE_URL = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0'  # Replace with your regional Base URL
 CF.BaseUrl.set(BASE_URL)
 
+Name_DataBase = {'father': '1', 'mother': '2', 'son': '3', 'daughter': '4'}
 
 def get_face_data(filename):
 	headers = {
@@ -59,10 +60,19 @@ def show_webcam():
     return img.tostring()
 
 #################################################
-filename1 = '/home/pi/smart_lock/photo_Make/Joe/1.jpg'
-filename2 = '/home/pi/smart_lock/photo_Make/Cynthia/2.jpg'
-filename3 = '/home/pi/smart_lock/photo_Make/Louis/3.jpg'
-filename4 = '/home/pi/smart_lock/photo_Make/Pierre/4.jpg'
+with open('speech_result.txt', 'rb') as f:
+    speech_result = f.read()
+    print("In Face Recognition, Speech result: "+speech_result)
+    if speech_result == 'Bad':
+        print("Failed in Speech Recog, Face Recog deny")
+        exit()
+    else:
+        speech_result = Name_DataBase[speech_result]  # Map speech result to its number
+
+filename1 = '/home/pi/smart_lock/photo_Make/father/1.jpg'
+filename2 = '/home/pi/smart_lock/photo_Make/mother/2.jpg'
+filename3 = '/home/pi/smart_lock/photo_Make/son/3.jpg'
+filename4 = '/home/pi/smart_lock/photo_Make/not_daughter/4.jpg'
 
 files = [filename1, filename2, filename3, filename4]
 
@@ -76,7 +86,7 @@ all_faceid = [f['faceId'] for image in results for f in image]
 
 req_count = 5   # To avoid violate max request send, only do 5 times
 while(req_count): 
-    # return recognize result, 0: no match; 1: Joe; 2: Cynthia; 3: Louis; 4: Pierre
+    # return recognize result, 0: no match; 1: father; 2: mother; 3: son; 4: daughter
     recogize_result = 0
 
     test_img = show_webcam()
@@ -95,6 +105,9 @@ while(req_count):
 
     print (str(recogize_result))
     recogize_result = str(recogize_result)
+    if recogize_result != speech_result:
+        print("Face and Speech Name Not Match, Access Deny ...")
+        exit()
 
     if recogize_result == '1' or recogize_result == '2' or recogize_result == '3':
         req_count = 1
