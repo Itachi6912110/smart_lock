@@ -57,10 +57,10 @@ def show_webcam():
     return img.tostring()
 
 #################################################
-filename1 = '/home/louiefu/Desktop/makentu/photo_Make/Joe/1.jpg'
-filename2 = '/home/louiefu/Desktop/makentu/photo_Make/Cynthia/2.jpg'
-filename3 = '/home/louiefu/Desktop/makentu/photo_Make/Louis/3.jpg'
-filename4 = '/home/louiefu/Desktop/makentu/photo_Make/Pierre/4.jpg'
+filename1 = '/home/pi/smart_lock/photo_Make/Joe/1.jpg'
+filename2 = '/home/pi/smart_lock/photo_Make/Cynthia/2.jpg'
+filename3 = '/home/pi/smart_lock/photo_Make/Louis/3.jpg'
+filename4 = '/home/pi/smart_lock/photo_Make/Pierre/4.jpg'
 #test_file = '/home/louiefu/Desktop/makentu/photo_Make/Pierre/29893563_1724619870894340_1212997725_o.jpg'
 
 files = [filename1, filename2, filename3, filename4]
@@ -91,7 +91,7 @@ if len(test_result) != 0:
         	max_confidence = r['confidence']
         sim_face += 1
 
-print(str(recogize_result))
+print (str(recogize_result))
 
 
 
